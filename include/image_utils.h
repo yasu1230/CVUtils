@@ -11,7 +11,7 @@ namespace {
 
 class ImageUtils {
  public:
-  static bool Equal(const cv::Mat &src1, const cv::Mat &src2) {
+  static bool IsEqual(const cv::Mat &src1, const cv::Mat &src2) {
     if (src1.empty() && src2.empty())
       return true;
 
