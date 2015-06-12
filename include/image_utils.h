@@ -1,3 +1,8 @@
+#pragma once
+
+#ifndef INCLUDE_IMAGE_UTILS_H_
+#define INCLUDE_IMAGE_UTILS_H_
+
 #include <opencv2/opencv.hpp>
 
 namespace {
@@ -7,12 +12,12 @@ class ImageUtils {
   static bool Equal(const cv::Mat &src1, const cv::Mat &src2)
   {
     if (src1.empty() && src2.empty())
-	  return true;
+      return true;
 
-    if(src1.channels() != src2.channels())
+    if (src1.channels() != src2.channels())
       return false;
 
-    if(src1.rows != src2.rows || src1.cols != src2.cols)
+    if (src1.rows != src2.rows || src1.cols != src2.cols)
       return false;
 
     cv::Mat diff;
@@ -44,3 +49,4 @@ class ImageUtils {
   }
 };
 }
+#endif  // INCLUDE_IMAGE_UTILS_H_
