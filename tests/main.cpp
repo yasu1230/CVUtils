@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include <opencv2/opencv.hpp>
+#ifdef _MSC_VER
 #include <opencv2/opencv_lib.hpp>
+#endif
 #include "../include/image_utils.h"
 
 //#pragma comment(lib,"gtestd.lib")

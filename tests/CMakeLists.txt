@@ -32,10 +32,10 @@ function(add_gtest_with_opencv test_name test_source)
   add_test(NAME ${test_name} COMMAND ${test_name})
 endfunction(add_gtest_with_opencv)
 
-add_gtest_with_opencv(test main.cpp)
+add_gtest_with_opencv(test_utils main.cpp)
 
 # Add tests to "make check"
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS test_compare)
+add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS test_utils)
 
 # Include directories
 include_directories(${CMAKE_CURRENT_LIST_DIR})
