@@ -6,6 +6,7 @@ compiler:
 before_install:
     # update apt-repository
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo add-apt-repository -y ppa:yjwong/opencv2
     - sudo apt-get -qq update
 
     # update to gcc with c++11 support
@@ -15,20 +16,20 @@ before_install:
 
     # build opencv
     - sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip
-    - mkdir opencv
-    - cd opencv
-    - wget https://github.com/Itseez/opencv/archive/2.4.11.zip
-    - unzip -qq 2.4.11.zip
-    - cd opencv-2.4.11
-    - mkdir build
-    - cd build
-#    - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
-    - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_DOCS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_OPENCV_JAVA=OFF -D BUILD_SHARED_LIBS=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D WITH_OPENEXR=OFF -D WITH_WEBP=OFF ..
-    - make -j8
-    - sudo make -j8 install
-    - sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
-    - sudo ldconfig
-    - cd ../../..
+#    - mkdir opencv
+#    - cd opencv
+#    - wget https://github.com/Itseez/opencv/archive/2.4.11.zip
+#    - unzip -qq 2.4.11.zip
+#    - cd opencv-2.4.11
+#    - mkdir build
+#    - cd build
+##    - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
+#    - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_DOCS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_OPENCV_JAVA=OFF -D BUILD_SHARED_LIBS=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D WITH_OPENEXR=OFF -D WITH_WEBP=OFF ..
+#    - make -j8
+#    - sudo make -j8 install
+#    - sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+#    - sudo ldconfig
+#    - cd ../../..
 
 install:
     # install GTest
@@ -58,11 +59,11 @@ script:
     - CTEST_OUTPUT_ON_FAILURE=TRUE make check
     - sh ./cpplint.sh
 
-#after_success:
-#    - lcov --directory . --capture --output-file coverage.info
-#    - lcov --remove coverage.info 'tests/*' 'examples/*' '/usr/*' 'opencv/*' 'CMakeFiles/*' --output-file coverage.info
-#    - lcov --list coverage.info
-#    - coveralls-lcov --repo-token c6Fd5h2Ovd2c5PV7agagA89sUhsZCwIPR coverage.info
+after_success:
+    - lcov --directory . --capture --output-file coverage.info
+    - lcov --remove coverage.info 'tests/*' 'examples/*' '/usr/*' 'opencv/*' 'CMakeFiles/*' --output-file coverage.info
+    - lcov --list coverage.info
+    - coveralls-lcov --repo-token e0TGFMdblf4L7NRfQWCkPhonHMpjaUOdV coverage.info
 
 #notifications:
 #    email:
