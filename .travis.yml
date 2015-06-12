@@ -5,17 +5,19 @@ compiler:
 
 before_install:
     # update apt-repository
-    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+#    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo add-apt-repository -y ppa:yjwong/opencv2
     - sudo apt-get -qq update
 
     # update to gcc with c++11 support
-    - sudo apt-get -qq install gcc-4.9 g++-4.9
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
-    - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90
+#    - sudo apt-get -qq install gcc-4.9 g++-4.9
+#    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
+#    - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90
 
     # build opencv
-    - sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip
+#    - sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config python-dev python-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff4-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libv4l-dev libtbb-dev libqt4-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip
+    - sudo apt-get -y install libopencv-dev build-essential
+
 #    - mkdir opencv
 #    - cd opencv
 #    - wget https://github.com/Itseez/opencv/archive/2.4.11.zip
