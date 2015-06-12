@@ -4,18 +4,23 @@ namespace {
 
 class ImageUtils {
 public:
-	static bool Compare(const cv::Mat &src1, const cv::Mat &src2)
+	static bool Equal(const cv::Mat &src1, const cv::Mat &src2)
 	{
+		if (src1.empty() && src2.empty())
+			return true;
+
 		if(src1.channels() != src2.channels())
 			return false;
 
 		if(src1.rows != src2.rows || src1.cols != src2.cols)
 			return false;
 
-		cv::Mat dst(src1.size(), CV_8UC1);
-		cv::compare(src1, src2, dst, CV_CMP_EQ);
+		cv::Mat diff;
+		cv::compare(src1, src2, diff, cv::CMP_NE);
+		if(diff.channels() != 1)
+			cvtColor(diff, diff, CV_RGB2GRAY);
 
-		if(cv::countNonZero(dst) == 0)
+		if(cv::countNonZero(diff) == 0)
 			return true;
 
 		return false;
