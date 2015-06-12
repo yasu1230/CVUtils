@@ -7,7 +7,7 @@
 
 #include <opencv2/opencv.hpp>
 
-namespace CVUtils {
+namespace {
 
 class ImageUtils {
  public:
@@ -46,5 +46,5 @@ class ImageUtils {
   }
 };
 
-}  // namespace CVUtils
+}  // namespace
 #endif  // INCLUDE_IMAGE_UTILS_H_
