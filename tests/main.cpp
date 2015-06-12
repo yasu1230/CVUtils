@@ -28,6 +28,13 @@ TEST(IsEqualTest, is_equal_false)
 	EXPECT_FALSE(ImageUtils::IsEqual(src1, src2));
 }
 
+TEST(IsEqualTest, is_equal_empty)
+{
+	cv::Mat src1;
+	cv::Mat src2;
+	EXPECT_TRUE(ImageUtils::IsEqual(src1, src2));
+}
+
 TEST(IsEqualTest, is_equal_differnt_channel)
 {
 	cv::Mat src1 = cv::Mat::zeros(cv::Size(64, 64), CV_8UC3);
