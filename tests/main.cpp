@@ -18,12 +18,12 @@ int main(int argc, char** argv)
 TEST(CompareTest, compare_true)
 {
 	cv::Mat src = cv::imread("images/test01.png");
-	EXPECT_TRUE(ImageUtils::Compare(src, src));
+	EXPECT_TRUE(ImageUtils::Equal(src, src));
 }
 
 TEST(CompareTest, compare_false)
 {
 	cv::Mat src1 = cv::imread("images/test01.png");
 	cv::Mat src2 = cv::imread("images/test02.png");
-	EXPECT_TRUE(ImageUtils::Compare(src1, src2));
+	EXPECT_FALSE(ImageUtils::Equal(src1, src2));
 }
