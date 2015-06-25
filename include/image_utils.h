@@ -99,7 +99,7 @@ class ImageUtils {
     return 0;
   }
 
-  static inline void SetValue(cv::Mat &im, int x, int y, uchar value) {
+  static inline void SetValue(const cv::Mat &im, int x, int y, uchar value) {
     if ((x >= 0 && x < im.cols) && (y >= 0 && y < im.rows)) {
       im.data[y * im.cols + x] = value;
     }
