@@ -21,20 +21,24 @@ class ImageUtils {
     if (im.empty())
       return rect;
 
-    if (im.channels() != 1)
-      cvtColor(im, im, CV_RGB2GRAY);
+    cv::Mat gray;
+    if (im.channels() != 1) {
+      cvtColor(im, gray, CV_RGB2GRAY);
+    } else {
+      gray = im.clone();
+	}
 
-    if (cv::countNonZero(im) == 0)
+    if (cv::countNonZero(gray) == 0)
       return rect;
 
-    width = im.cols;
-    height = im.rows;
+    width = gray.cols;
+    height = gray.rows;
 
     top = bottom = left = right = -1;
 
     for (int y = 0; (y < height && top == -1); y++) {
       for (int x = 0; (x < width && top == -1); x++) {
-        if (GetValue(im, x, y) > 0) {
+        if (GetValue(gray, x, y) > 0) {
           top = y;
         }
       }
@@ -42,7 +46,7 @@ class ImageUtils {
 
     for (int y = height - 1; (y >= 0 && bottom == -1); y--) {
       for (int x = 0; (x < width && bottom == -1); x++) {
-        if (GetValue(im, x, y) > 0) {
+        if (GetValue(gray, x, y) > 0) {
           bottom = y;
         }
       }
@@ -50,7 +54,7 @@ class ImageUtils {
 
     for (int x = 0; (x < width && left == -1); x++) {
       for (int y = 0; (y < height && left == -1); y++) {
-        if (GetValue(im, x, y) > 0) {
+        if (GetValue(gray, x, y) > 0) {
           left = x;
         }
       }
@@ -58,7 +62,7 @@ class ImageUtils {
 
     for (int x = width - 1; (x >= 0 && right == -1); x--) {
       for (int y = 0; (y < height && right == -1); y++) {
-        if (GetValue(im, x, y) > 0) {
+        if (GetValue(gray, x, y) > 0) {
           right = x;
         }
       }

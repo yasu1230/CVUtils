@@ -13,9 +13,9 @@ TEST_F(GetSetValueTest, get_value)
 
 	cv::Mat dst = src.clone();
 
-	for(int x = 0; x < dst.rows; x++)
+	for(int x = -1; x <= dst.rows; x++)
 	{
-		for(int y = 0; y < dst.cols; y++)
+		for(int y = -1; y <= dst.cols; y++)
 		{
 			EXPECT_TRUE(ImageUtils::GetValue(src, x, y) == 0);
 		}

@@ -45,3 +45,18 @@ TEST_F(TrimTest, trim)
 
 }
 
+TEST_F(TrimTest, color)
+{
+	cv::Mat src = cv::Mat::zeros(cv::Size(33, 33), CV_8UC3);
+
+	cv::circle(src, cv::Point(16, 16), 11, cv::Scalar(255, 0, 0), 1);
+
+	cv::Rect rect = ImageUtils::Trim(src);
+
+	EXPECT_TRUE(rect.x == 5);
+	EXPECT_TRUE(rect.y == 5);
+	EXPECT_TRUE(rect.width == 22);
+	EXPECT_TRUE(rect.height == 22);
+
+}
+
