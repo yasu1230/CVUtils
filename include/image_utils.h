@@ -6,11 +6,67 @@
 #define INCLUDE_IMAGE_UTILS_H_
 
 #include <opencv2/opencv.hpp>
+#include <vector>
 
-namespace {
+namespace CVUtils {
 
 class ImageUtils {
  public:
+  static cv::Rect Trim(const cv::Mat &im) {
+    cv::Rect rect;
+
+    int top, bottom, left, right;
+    int width, height;
+
+    if (im.empty())
+      return rect;
+
+    if (im.channels() != 1)
+      cvtColor(im, im, CV_RGB2GRAY);
+
+    if (cv::countNonZero(im) == 0)
+      return rect;
+
+    width = im.cols;
+    height = im.rows;
+
+    top = bottom = left = right = -1;
+
+    for (int y = 0; (y < height && top == -1); y++) {
+      for (int x = 0; (x < width && top == -1); x++) {
+        if (GetValue(im, x, y) > 0) {
+          top = y;
+        }
+      }
+    }
+
+    for (int y = height - 1; (y >= 0 && bottom == -1); y--) {
+      for (int x = 0; (x < width && bottom == -1); x++) {
+        if (GetValue(im, x, y) > 0) {
+          bottom = y;
+        }
+      }
+    }
+
+    for (int x = 0; (x < width && left == -1); x++) {
+      for (int y = 0; (y < height && left == -1); y++) {
+        if (GetValue(im, x, y) > 0) {
+          left = x;
+        }
+      }
+    }
+
+    for (int x = width - 1; (x >= 0 && right == -1); x--) {
+      for (int y = 0; (y < height && right == -1); y++) {
+        if (GetValue(im, x, y) > 0) {
+          right = x;
+        }
+      }
+    }
+
+    return cv::Rect(left, top, abs(right - left), abs(bottom - top));
+  }
+
   static bool IsEqual(const cv::Mat &src1, const cv::Mat &src2) {
     if (src1.empty() && src2.empty())
       return true;
@@ -32,19 +88,19 @@ class ImageUtils {
     return false;
   }
 
-  static inline uchar SetValue(cv::Mat *im, int x, int y) {
-    if ((x >= 0 && x < im->cols) && (y >= 0 && y < im->rows)) {
-      return im->data[y * im->cols + x];
+  static inline uchar GetValue(const cv::Mat &im, int x, int y) {
+    if ((x >= 0 && x < im.cols) && (y >= 0 && y < im.rows)) {
+      return im.data[y * im.cols + x];
     }
     return 0;
   }
 
-  static inline void SetValue(cv::Mat *im, int x, int y, uchar value) {
-    if ((x >= 0 && x < im->cols) && (y >= 0 && y < im->rows)) {
-      im->data[y * im->cols + x] = value;
+  static inline void SetValue(cv::Mat &im, int x, int y, uchar value) {
+    if ((x >= 0 && x < im.cols) && (y >= 0 && y < im.rows)) {
+      im.data[y * im.cols + x] = value;
     }
   }
 };
 
-}  // namespace
+}  // namespace CVUtils
 #endif  // INCLUDE_IMAGE_UTILS_H_
