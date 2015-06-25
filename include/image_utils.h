@@ -26,7 +26,7 @@ class ImageUtils {
       cvtColor(im, gray, CV_RGB2GRAY);
     } else {
       gray = im.clone();
-	}
+    }
 
     if (cv::countNonZero(gray) == 0)
       return rect;
