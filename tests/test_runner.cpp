@@ -8,9 +8,6 @@
 #include <opencv2/opencv_lib.hpp>
 #endif
 
-//#pragma comment(lib,"gtestd.lib")
-//#pragma comment(lib,"libcpmtd.lib")
-
 using namespace CVUtils;
 
 int main(int argc, char** argv)

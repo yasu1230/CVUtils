@@ -32,7 +32,7 @@ function(add_gtest_with_opencv test_name test_source)
   add_test(NAME ${test_name} COMMAND ${test_name})
 endfunction(add_gtest_with_opencv)
 
-add_gtest_with_opencv(test_utils main.cpp)
+add_gtest_with_opencv(test_utils test_runner.cpp)
 
 # Add tests to "make check"
 add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS test_utils)
